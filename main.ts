@@ -5,7 +5,7 @@
 // Copy-only: it never writes into the repository directory, and it runs
 // twice with byte-identical results. The dossier caps match the
 // competition's gate so a local run fails exactly where the grader would.
-import { cpSync, mkdirSync, rmSync, writeFileSync } from 'node:fs';
+import { cpSync, mkdirSync, readdirSync, rmSync, writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { buildDossier } from './vendor/makefun-game.ts';
@@ -13,8 +13,13 @@ import { buildDossier } from './vendor/makefun-game.ts';
 const repoRoot = dirname(fileURLToPath(import.meta.url));
 const outDir = process.env.MAKEFUN_OUTPUT_DIR || '/output';
 
-rmSync(outDir, { recursive: true, force: true });
+// The grader mounts the output directory itself, so the directory cannot
+// be removed (its parent is read-only): create it if missing and clear
+// only its contents, leaving the directory itself in place.
 mkdirSync(outDir, { recursive: true });
+for (const entry of readdirSync(outDir)) {
+  rmSync(join(outDir, entry), { recursive: true, force: true });
+}
 cpSync(join(repoRoot, 'game'), join(outDir, 'game'), { recursive: true });
 cpSync(join(repoRoot, 'screenshots'), join(outDir, 'screenshots'), { recursive: true });
 
