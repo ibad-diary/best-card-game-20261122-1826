@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Ember Pact — an original card battler: duel Raka si Bayang with elemental cards, chains and reactions.">
+<title>Ember Pact — Duel Kartu Penyihir Api</title>
+<link rel="stylesheet" href="./styles/table.css">
+</head>
+<body>
+<div id="stage">
+  <header id="hud">
+    <div id="mana" class="hud-chip">🔮 Mana 1/1</div>
+    <div id="round" class="hud-chip">Ronde 1</div>
+    <div id="score" class="hud-chip">Skor 0</div>
+    <button id="mute" class="hud-btn" type="button">🔊 Suara</button>
+  </header>
+
+  <section id="enemy-hand" aria-label="Tangan lawan"></section>
+
+  <main id="middle">
+    <div id="intent" aria-live="polite"></div>
+    <div id="played-row"></div>
+    <div id="log" aria-live="polite"></div>
+    <button id="end-turn" type="button">Akhiri Giliran ⏎</button>
+  </main>
+
+  <section id="player-hand" aria-label="Tangan pemain"></section>
+
+  <div id="title-screen" class="overlay">
+    <div class="title-card">
+      <div class="title-pips"><span class="pip pip-triangle"></span><span class="pip pip-droplet"></span><span class="pip pip-leaf"></span><span class="pip pip-hexagon"></span></div>
+      <h1>🔥 EMBER PACT 🔥</h1>
+      <p class="tagline">Duel kartu para penyihir api — kalahkan Raka si Bayang sebelum nyawamu habis.</p>
+      <button id="start-btn" type="button">Mulai Bertarung</button>
+      <div class="howto">
+        <p><b>Cara main:</b> klik kartu untuk memainkannya (tombol 1–7), Enter mengakhiri giliran.</p>
+        <p>Mainkan 2+ kartu satu elemen dalam satu giliran untuk bonus rantai. Api + Daun = Bara Membara (+3), Air + Api = Uap Panas (+2).</p>
+        <p>Perhatikan niat lawan di tengah meja — blokir saat ia akan menyerang besar.</p>
+        <p>Masing-masing 20 nyawa. Mana naik +1 tiap ronde (maks 10). Menang bila nyawa lawan 0.</p>
+      </div>
+    </div>
+  </div>
+
+  <div id="end-screen" class="overlay hidden">
+    <div class="confetti" aria-hidden="true"></div>
+    <div class="end-card">
+      <h2 class="end-title">KEMENANGAN!</h2>
+      <p class="end-sub"></p>
+      <p class="end-score"></p>
+      <button id="play-again" type="button">Main Lagi</button>
+      <p class="end-hint">Tekan R untuk duel baru · M untuk suara</p>
+    </div>
+  </div>
+</div>
+<script type="module" src="./src/main.js"></script>
+</body>
+</html>
